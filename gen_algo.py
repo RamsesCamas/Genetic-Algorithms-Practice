@@ -1,5 +1,10 @@
 import numpy as np
 
+"""First definitive attemp on createing a genetic algorithm from scratch
+and without the use of external libreries.
+In this example the number of generations defined is 10,000 plus
+the zero generation"""
+
 create_gen = lambda gen_size : np.random.randint(0,2,(gen_size))
 
 get_gen_size = lambda num : num.bit_length()

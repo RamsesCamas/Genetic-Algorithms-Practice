@@ -1,5 +1,7 @@
 import numpy as np
-from numpy.lib.function_base import percentile
+
+#This was the first approach for a genetic algorithm from scratch
+#and only from teory
 
 class Individual():
     def __init__(self,gen=None) -> None:
