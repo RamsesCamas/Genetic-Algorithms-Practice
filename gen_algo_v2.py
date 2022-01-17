@@ -37,7 +37,7 @@ def get_fenotypes(population,min_val, max_val,res):
             fenotypes.append(fenotype)
         else:
             population = [ x for x in population if not (x==individual).all()]
-    return (population,fenotypes)
+    return [population,fenotypes]
 
 def mutate(genotype):
     if np.random.uniform(0,1) <= PROB_MUTATE_INDIVIDUAL:
@@ -90,7 +90,20 @@ def evaluate_population(individuals):
     fitness_list = []
     for fenotype in individuals[1]:
         fitness_list.append(fitness(fenotype))
-    return (individuals[0], individuals[1],fitness_list)
+    return [individuals[0], individuals[1],fitness_list]
+
+def cropping(individuals):
+    index_to_crop = individuals[2].index(min(individuals[2]))
+    individuals[0].pop(index_to_crop) 
+    individuals[1].pop(index_to_crop) 
+    individuals[2].pop(index_to_crop) 
+    return index_to_crop
+
+def get_best_individual(individuals,best_solutions):
+    max_index = individuals[2].index(max(individuals[2]))
+    best_solutions[0].append(individuals[0][max_index]) 
+    best_solutions[1].append(individuals[1][max_index])
+    best_solutions[2].append(individuals[2][max_index])
 
 if __name__ == '__main__':
     min_val = 4
@@ -105,15 +118,43 @@ if __name__ == '__main__':
     gen_size = get_gen_size(num_points)
 
     individuals = generate_population(gen_size,min_val,max_val,res)
+    best_solutions = [[],[],[]]
+    individuals = evaluate_population(individuals)
+    
+    max_fitness.append(max(individuals[2]))
+    min_fitness.append(min(individuals[2]))
+    mean_fitness.append(np.mean(individuals[2]))
 
-    first_fitness = evaluate_population(individuals)[2]
-    max_fitness.append(max(first_fitness))
-    min_fitness.append(min(first_fitness))
-    mean_fitness.append(np.mean(first_fitness))
-
-    print(len(individuals[0]))
+    get_best_individual(individuals,best_solutions)
     couples = create_matches(individuals[0])
     for couple in couples:
         create_sons(couple,individuals[0])
     for individual in individuals[0]:
         mutate(individual)
+    individuals = get_fenotypes(individuals[0],min_val,max_val,res)
+    individuals = evaluate_population(individuals)
+    get_best_individual(individuals,best_solutions)
+
+    for _ in range(100000):
+        while len(individuals[0]) > POPULATION_SIZE:
+            cropping(individuals)
+            
+        individuals = get_fenotypes(individuals[0],min_val,max_val,res)
+        individuals = evaluate_population(individuals)
+        
+        max_fitness.append(max(individuals[2]))
+        min_fitness.append(min(individuals[2]))
+        mean_fitness.append(np.mean(individuals[2]))
+
+        get_best_individual(individuals,best_solutions)
+
+        couples = create_matches(individuals[0])
+        for couple in couples:
+            create_sons(couple,individuals[0])
+        for individual in individuals[0]:
+            mutate(individual)
+
+    maximum_index = best_solutions[2].index(max(best_solutions[2]))
+    the_best_solution = (best_solutions[0][maximum_index],best_solutions[1][maximum_index],best_solutions[2][maximum_index])
+    print(the_best_solution)
+    print(len(max_fitness))
