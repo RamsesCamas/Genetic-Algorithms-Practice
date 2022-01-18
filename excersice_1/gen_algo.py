@@ -117,25 +117,26 @@ if __name__ == '__main__':
     max_fitness = []
     min_fitness = []
     mean_fitness = []
+    best_solutions = [[],[],[]]
 
     f_range = get_range(min_val,max_val)
     num_points = get_points(f_range,res)
     gen_size = get_gen_size(num_points)
 
     individuals = generate_population(gen_size,min_val,max_val,res)
-    best_solutions = [[],[],[]]
     individuals = evaluate_population(individuals)
     
     max_fitness.append(max(individuals[2]))
     min_fitness.append(min(individuals[2]))
     mean_fitness.append(np.mean(individuals[2]))
-
     get_best_individual(individuals,best_solutions)
+    
     couples = create_matches(individuals[0])
     for couple in couples:
         create_sons(couple,individuals[0])
     for individual in individuals[0]:
         mutate(individual)
+
     individuals = get_fenotypes(individuals[0],min_val,max_val,res)
     individuals = evaluate_population(individuals)
     get_best_individual(individuals,best_solutions)
@@ -150,7 +151,6 @@ if __name__ == '__main__':
         max_fitness.append(max(individuals[2]))
         min_fitness.append(min(individuals[2]))
         mean_fitness.append(np.mean(individuals[2]))
-
         get_best_individual(individuals,best_solutions)
 
         couples = create_matches(individuals[0])
