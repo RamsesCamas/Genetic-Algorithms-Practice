@@ -77,13 +77,14 @@ def run_evolution(
     crossover_func: CrossoverFunc = single_point_crossover,
     mutation_func: MutationFunc = mutation
 )-> Tuple[Population,int]:
+
     population = populate_func()
     for i in range(generation_limit):
         population = sorted(population,key=lambda genome: fitness_func(genome), reverse=True)
         if fitness_func(population[0]) >= fitness_limit:
             break
         next_generation = population[0:2]
-        for j in range((len(population)//2) - 1):
+        for _ in range((len(population)//2) - 1):
             parents = selection_func(population, fitness_func)
             offspring_a, offspring_b = crossover_func(parents[0], parents[1])
             offspring_a = mutation_func(offspring_a)

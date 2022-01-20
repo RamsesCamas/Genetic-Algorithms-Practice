@@ -1,5 +1,5 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
 """First definitive attemp on createing a genetic algorithm from scratch
 and without the use of external libreries.
 In this example the number of generations defined is 10,000 plus
@@ -13,7 +13,7 @@ get_points = lambda f_range, res : int((f_range/res) + 1)
 
 get_range = lambda min_val, max_val : max_val - min_val
 
-POPULATION_SIZE = 4
+POPULATION_SIZE = 100
 PROB_MUTATE_GEN = 0.1
 PROB_MUTATE_INDIVIDUAL = 0.15
 
@@ -88,6 +88,8 @@ def create_sons(couple,population):
     transfer_gen2 = gen_p2[:pos]
     son_1 = np.concatenate((gen_p1[pos:],transfer_gen2))
     son_2 = np.concatenate((gen_p2[:pos],transfer_gen1))
+    mutate(son_1)
+    mutate(son_2)
     population.append(son_1)
     population.append(son_2)
 
@@ -99,6 +101,7 @@ def evaluate_population(individuals):
 
 def cropping(individuals):
     index_to_crop = individuals[2].index(min(individuals[2]))
+    print('Eliminando ', individuals[2][index_to_crop]) 
     individuals[0].pop(index_to_crop) 
     individuals[1].pop(index_to_crop) 
     individuals[2].pop(index_to_crop) 
@@ -134,14 +137,12 @@ if __name__ == '__main__':
     couples = create_matches(individuals[0])
     for couple in couples:
         create_sons(couple,individuals[0])
-    for individual in individuals[0]:
-        mutate(individual)
 
     individuals = get_fenotypes(individuals[0],min_val,max_val,res)
     individuals = evaluate_population(individuals)
     get_best_individual(individuals,best_solutions)
 
-    for _ in range(100000):
+    for _ in range(1000):
         while len(individuals[0]) > POPULATION_SIZE:
             cropping(individuals)
             
@@ -156,10 +157,15 @@ if __name__ == '__main__':
         couples = create_matches(individuals[0])
         for couple in couples:
             create_sons(couple,individuals[0])
-        for individual in individuals[0]:
-            mutate(individual)
 
     maximum_index = best_solutions[2].index(max(best_solutions[2]))
     the_best_solution = (best_solutions[0][maximum_index],best_solutions[1][maximum_index],best_solutions[2][maximum_index])
-    print(the_best_solution)
+    print('El máximo es: ', the_best_solution)
     print(len(max_fitness))
+    print(max_fitness[-1])
+    plt.style.use('_mpl-gallery')
+    x = [num for num in range(1001)]
+    plt.plot(x,max_fitness)
+    plt.plot(x,mean_fitness)
+    plt.plot(x,min_fitness)
+    plt.show()
