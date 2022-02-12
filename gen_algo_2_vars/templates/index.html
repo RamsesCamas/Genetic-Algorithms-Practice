@@ -1,0 +1,88 @@
+
+{% extends 'bootstrap/base.html'%}
+{% block title %}
+Algoritmo genético
+{% endblock %}
+
+{% block navbar %}
+<nav class="nav" style="background-color: black; color: white;">
+    <h1>Ejecución de algorimo genético</h1>
+  </nav>
+{% endblock %}
+
+{% block content %}
+<form action="/" method="post" class="col-12" style="text-align: center;">
+    <div style="margin-top: 30px;">
+        <div class="col-3" style=" float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 25px;">Valor mínimo de X</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="min_val_x">
+        </div>
+        <div class="col-3" style="float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 45px;">Valor mínimo de Y</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="min_val_y">
+        </div>
+        <div class="col-3" style=" float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 45px;">Valor máximo de X</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="max_val_x">
+        </div>
+        <div class="col-3" style=" float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 45px;">Valor máximo de Y</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="max_val_y">
+        </div>
+    </div>
+    <div style="margin-top: 50px;">
+        <div class="col-3" style=" float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 25px;">Resolución de X</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="res_x">
+        </div>
+        <div class="col-3" style="float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 45px;">Resolución de Y</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="res_y">
+        </div>
+        <div class="col-3" style=" float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 45px;">Total de generaciones </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="total_generations">
+        </div>
+        <div class="col-3" style=" float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 45px;">Tamaño de la población</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="population_size">
+        </div>
+    </div>
+    <div style="margin-top: 50px;">
+        <div class="col-6" style=" float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 25px;">Probabilidad del individuo de mutar</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="prob_mutate_individual">
+        </div>
+        <div class="col-6" style="float:left;">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 20px; margin-left: 45px;">Probabilidad del gen de mutar</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" style="margin-bottom: 30px; margin-left: 15px;" name="prob_mutate_gen">
+        </div>
+    </div>
+    <div style="margin-top: 50px;">
+        <div class="col-6" style="float: left;">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" style="margin-top: 10px;" name='find_max'>
+            <label class="form-check-label" for="flexCheckChecked" style="font-size: 20px;">
+                Buscar Máximo
+            </label>
+        </div>
+        <div class="col-6" style="float: left;">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" style="margin-top: 10px;" name='find_min'>
+            <label class="form-check-label" for="flexCheckChecked" style="font-size: 20px;">
+                Buscar Mínimo
+            </label>
+        </div>
+    </div>
+      <div class="d-grip gap-2">
+        <button type="submit" class="btn btn-primary btn-lg col-9" style="font-size: 23px; margin-top: 50px;"><b>Ejecutar Algoritmo</b></button>
+      </div>
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('input:checkbox').click(function() {
+                $('input:checkbox').not(this).prop('checked', false);
+            });
+        });
+        </script>
+{% endblock content %}

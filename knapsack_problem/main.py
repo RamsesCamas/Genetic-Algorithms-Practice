@@ -18,7 +18,7 @@ CrossoverFunc = Callable[[Genome,Genome],Tuple[Genome,Genome]]
 MutationFunc = Callable[[Genome],Genome]
 
 things = [
-    Thing('Laptop',500,2200),
+    Thing('Laptop',500,2900),
     Thing('Headphones',150,160),
     Thing('Notepad',40,333),
     Thing('Water Bottle',30,192),

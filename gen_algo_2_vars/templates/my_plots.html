@@ -1,0 +1,24 @@
+<!--<img src="{{ image }}"/>-->
+{% extends 'bootstrap/base.html'%}
+{% block title %}
+Algoritmo genético
+{% endblock %}
+
+{% block navbar %}
+<nav class="nav" style="background-color: black; color: white;">
+    <h1>Ejecución de algorimo genético</h1>
+  </nav>
+{% endblock %}
+
+{% block content %}
+<center>  
+<h1>Resultados</h1>
+<img src="{{ image }}" width="700px" height="530px"/>
+<h1>{{title_best}}</h1>
+<h1>{{best_individual[0]}}</h1>
+<h1>En la coordenada: {{best_individual[1]}}</h1>
+<h1>Con un valor de: {{best_individual[2]}}</h1>
+
+</center>
+
+{% endblock content %}
